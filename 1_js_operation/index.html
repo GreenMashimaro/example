@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>js运算符</title>
+  <link rel="stylesheet" href="../common/css/bootstrap.min.css">
+  <script src="../common/js/vue.min.js"></script>
+  <style>
+    #app {
+      width: 770px;
+      margin: 30px auto;
+    }
+
+    #app .operateTbl {
+      margin-top: 30px;
+    }
+
+    .red {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <p class="red">当与和或同时存在时，与的优先级高于或</p>
+    <table class="tbl table table-bordered">
+      <thead>
+        <tr>
+          <th>表达式</th>
+          <th>运行结果</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in arr" :class="{red: item.isRed}">
+          <td width="310">{{item.key}}</td>
+          <td>{{item.val}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table class="operateTbl table table-bordered">
+      <thead>
+        <tr>
+          <th style="text-align: center;" colspan="2">JS运算符优先级</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in arr2">
+          <td width="310">{{item.operate}}</td>
+          <td>{{item.desc}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script>
+    let gAObj = {
+      a1: {
+        str: '1 && 2 && 3',
+        isRed: false
+      },
+      a2: {
+        str: '0 && 1 && 2',
+        isRed: false
+      },
+      a3: {
+        str: '1 && 0 && 2',
+        isRed: false
+      },
+      a4: {
+        str: '0 || 1 || 2',
+        isRed: false
+      },
+      a5: {
+        str: '4 || 0 || 3',
+        isRed: false
+      },
+      a6: {
+        str: '3 && 0 || 2',
+        isRed: true
+      },
+      a7: {
+        str: '3 || 0 && 2',
+        isRed: true
+      },
+      a8: {
+        str: '0 || 2 && 3',
+        isRed: true
+      }
+    };
+
+    let gBArr = [
+      {
+        operate : '.[]()',
+        desc: '字段访问、数组下标、函数调用以及表达式分组'
+      },{
+        operate: '++ -- - ~ ! delete new typeof void',
+        desc: '一元运算符、返回数据类型、对象创建、未定义值'
+      }, {
+        operate: '* / %',
+        desc: '乘法、除法、取模'
+      }, {
+        operate: '+ - +',
+        desc: '加法、减法、字符串连接'
+      }, {
+        operate: '<< >> >>>',
+        desc: '移位'
+      }, {
+        operate: '< <= > >= instanceof',
+        desc: '小于、小于等于、大于、大于等于、instanceof'
+      }, {
+        operate: '== != === !==',
+        desc: '等于、不等于、严格相等、非严格相等'
+      }, {
+        operate: '&',
+        desc: '按位与'
+      }, {
+        operate: '^',
+        desc: '按位异或'
+      }, {
+        operate: '|',
+        desc: '按位或'
+      }, {
+        operate: '&&',
+        desc: '逻辑与'
+      }, {
+        operate: '||',
+        desc: '逻辑或'
+      }, {
+        operate: '?:',
+        desc: '条件'
+      }, {
+        operate: '= oP=',
+        desc: '赋值、运算赋值'
+      }, {
+        operate: ',',
+        desc: '多重求值'
+      }
+    ];
+
+    new Vue({
+      el: '#app',
+      data: {
+        arr: [],
+        arr2: gBArr
+      },
+      mounted: function() {
+        let num = Object.keys(gAObj).length;
+        for (let i = 1; i <= num; i++) {
+          var item = gAObj['a' + i];
+          this.arr.push({
+            key: 'var a = ' + item.str,
+            val: eval(item.str),
+            isRed: item.isRed
+          });
+        }
+      }
+    })
+  </script>
+</body>
+</html>

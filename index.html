@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>example</title>
+  <link rel="stylesheet" href="common/css/bootstrap.min.css">
+  <script src="common/js/vue.min.js"></script>
+  <style>
+    .tbl {
+      width: 500px;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+<body>
+  <table id="app" class=" tbl table table-bordered">
+    <thead>
+      <tr>
+        <th>序号</th>
+        <th>标题</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr v-for="(item, $index) in list">
+        <td>{{$index+1}}</td>
+        <td><a :href="item.link">{{item.title}}</a></td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+    var list = [
+      {
+        title: 'Js运算符号优先级',
+        link: '1_js_operation/index.html'
+      }
+    ];
+
+    new Vue({
+      el: '#app',
+      data: {
+        list: list
+      }
+    });
+  </script>
+</body>
+</html>
